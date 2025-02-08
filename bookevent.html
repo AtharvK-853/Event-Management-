@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Budget of Event</title>
+    <link rel="stylesheet" href="tailwind.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Asap+Condensed:ital,wght@0,400;0,600;1,300&family=Bad+Script&family=Dancing+Script:wght@700&family=Quicksand&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="bookevent.css">
+</head>
+
+<body>
+    <h1 class="op">Event booking Section</h1>
+    <section class="home"></section>
+    <div class="center">
+        <label for="photography" class="label">Select Your Photographer :</label>
+        <select name="photography" id="photography" class="select-box">
+            <option value="Raj Shaikh Photography">Raj Shaikh Photography</option>
+            <option value="RS Photography">RS Photography</option>
+            <option value="Soma Photography">Soma Photography</option>
+        </select>
+
+        <span class="result" id="name"></span>
+        <a href="" id="website" class="result-link"></a>
+
+
+        <label for="catering" class="label">Select Caterers:</label>
+        <select name="catering" id="catering" class="select-box">
+            <option value="Mohan Caterers">Mohan Caterers</option>
+            <option value="Nitin Caterers">Nitin Caterers</option>
+            <option value="Anandi Caterers">Anandi Caterers</option>
+        </select>
+        <span class="result" id="name-c"></span>
+        <a href="" id="website-c" class="result-link"></a>
+
+
+        <label for="venue" class="label">Select Venue:</label>
+
+        <select name="venue" id="venue" class="select-box">
+
+            <option value="Utkarsh Hall">Utkarsh Hall</option>
+            <option value="Samruddhi Lawns">Samruddhi Lawns</option>
+            <option value="Shree Datta Mangal Karyalay">Shree Datta Mangal Karyalay</option>
+        </select>
+
+        <span class="result" id="name-v"></span>
+        <a href="" id="website-v" class="result-link"></a>
+        <button class="book-button">Book Event</button>
+
+    </div>
+    <script>
+        function display(value) {
+            var name = value;
+            document.getElementById('website').innerHTML = name;
+            document.getElementById('name').innerHTML = "Checkout Our Website <br>";
+            if (name == 'Raj Shaikh Photography') {
+                document.getElementById('website').href = 'raj_shaikh_photography.html';
+            }
+            if (name == 'RS Photography') {
+                document.getElementById('website').href = 'RS_photography.html';
+            }
+
+            if (name == 'Soma Photography') {
+                document.getElementById('website').href = 'soma_photoggraphy.html';
+            }
+
+
+        }
+
+        function display1(value) {
+            var name = value;
+            document.getElementById('website-c').innerHTML = name;
+            document.getElementById('name-c').innerHTML = "Checkout Our Website <br>";
+
+
+
+            if (name == 'Mohan Cateres') {
+                document.getElementById('website-c').href = 'mohan_caterers.html';
+            }
+            if (name == 'Nitin Cateres') {
+                document.getElementById('website-c').href = 'nitin_caterers.html';
+            }
+            if (name == 'Anandi Cateres') {
+                document.getElementById('website-c').href = 'anandi_caterers.html';
+            }
+
+        }
+        // function venue(value) {
+        //     var name = value;
+        //     document.getElementById('name-v').innerHTML = "Checkout Our Website <br>";
+
+        // }
+    </script>
+    <script>
+        function calculateTotalBudget() {
+            const startingPrices = {
+                photographers: {
+                    "Raj Shaikh Photography": 16000,
+                    "RS Photography": 14000,
+                    "Soma Photography": 20000
+
+                },
+                caterers: {
+                    "Mohan Caterers": 30000,
+                    "Nitin Caterers": 30500,
+                    "Anandi Caterers": 40000,
+                },
+                venues: {
+                    "Utkarsh Hall": 35000,
+                    "Samruddhi Lawns": 40000,
+                    "Shree Datta Mangal Karyalay": 30000,
+                },
+                decorator: 4000
+            };
+
+
+            const selectedPhotography = document.getElementById('photography').value;
+            const selectedCatering = document.getElementById('catering').value;
+            const selectedVenue = document.getElementById('venue').value;
+
+
+            const photographyPrice = startingPrices.photographers[selectedPhotography];
+            const cateringPrice = startingPrices.caterers[selectedCatering];
+            const venuePrice = startingPrices.venues[selectedVenue];
+            const decoratorPrice = startingPrices.decorator;
+
+            const totalBudget = photographyPrice + cateringPrice + venuePrice + decoratorPrice;
+
+
+            const container = document.querySelector('.popup-container');
+            container.style.display = 'block';
+
+
+            container.innerHTML = `
+                  <div class="close-button" onclick="closeContainer()">X</div>
+                  <div class="popup-content">
+                      <h1>Prices Coulmn</h1>
+                      <p>${selectedPhotography}: ₹${photographyPrice}</p><br>
+                      <p>${selectedCatering}: ₹${cateringPrice}</p><br>
+                      <p>${selectedVenue}: ₹${venuePrice}</p><br>
+                      <p>Decoration: ₹${decoratorPrice}</p><br>
+                      <hr><br>
+                      <h2>Total Budget is: ₹${totalBudget}</h2>
+                      <a href="https://razorpay.com/payments-onboard/"><button class="btn" id="but">Confirm </button></a>
+                  </div>
+              `;
+        }
+
+        function closeContainer() {
+            const container = document.querySelector('.popup-container');
+            container.style.display = 'none';
+        }
+
+        document.querySelector('.book-button').addEventListener('click', calculateTotalBudget);
+    </script>
+    <div class="popup-container"></div>
+</body>
+
+</html>
